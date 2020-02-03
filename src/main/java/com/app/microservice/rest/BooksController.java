@@ -18,7 +18,6 @@ public class BooksController {
 	public String greeting() {
 		System.out.println("This method is called!! "+ i +" times");
 		i++;
-		System.exit(0);
 		return "Hello from Books Controller -  greeting";
 	}
 	
