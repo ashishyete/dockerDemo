@@ -20,6 +20,6 @@ notifications:
 before_install:
   - chmod +x mvnw 
 after_success: 
-    - docker build -t ashishyete/dockerDemo
+    - docker build -t ashishyete/dockerdemo
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker push ashishyete/dockerDemo
+    - docker push ashishyete/dockerdemo
