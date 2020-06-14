@@ -19,3 +19,7 @@ notifications:
     email: ashish.yete@gmail.com
 before_install:
   - chmod +x mvnw 
+after_success: 
+    - docker build -t ashishyete/dockerDemo
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push ashishyete/dockerDemo
