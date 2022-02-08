@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Building the Project.'
                 mvn clean install
-              echo 'Clean install Successful.
+              echo 'Clean install Successful.'
             }
         }
       stage('Deploy') {
