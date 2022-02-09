@@ -28,6 +28,10 @@ pipeline {
                 bat "mvn clean install"
             }
         }
+        stage("Docker build"){
+         'docker version'
+        ECHO 'EXITING DOCKER BUILD'
+    }
       stage('Deploy') {
             steps {
                 echo 'Deploy Stage should Trigger.'
