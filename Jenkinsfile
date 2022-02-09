@@ -18,7 +18,7 @@ pipeline {
            // List all branches in your repo. 
            bat "git branch -a"
            // Checkout to a specific branch in your repo.
-           bat "git checkout branchname"
+           bat "git checkout master"
           }
        }
     }
