@@ -29,8 +29,10 @@ pipeline {
             }
         }
         stage("Docker build"){
+            step {
          'docker version'
         echo 'EXITING DOCKER BUILD'
+            }
     }
       stage('Deploy') {
             steps {
