@@ -16,9 +16,9 @@ pipeline {
            // The below will clone your repo and will be checked out to master branch by default.
            git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/ashishyete/dockerDemo.git'
            // List all branches in your repo. 
-           bat "git branch -a"
+            "git branch -a"
            // Checkout to a specific branch in your repo.
-           bat "git checkout master"
+            "git checkout master"
           }
        }
     }
