@@ -32,6 +32,9 @@ pipeline {
             steps {
                 script{
                 'docker version'
+                 'docker build -t dockerDemo .'
+                 'docker image list'
+                  'docker tag dockerDemo ashishyete/dockerDemo:v1'
                 }
         echo 'EXITING DOCKER BUILD'
             }
