@@ -4,7 +4,7 @@ pipeline {
     maven 'default'
     }
     environment {
-    dockerimagename = "ashishyete/dockerDemo"
+    dockerimagename = "ashishyete/dockerdemonstration"
         dockerImage = ""
     }
     stages {
