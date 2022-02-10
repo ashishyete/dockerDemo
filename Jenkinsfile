@@ -3,7 +3,10 @@ pipeline {
     tools{
     maven 'default'
     }
-
+    environment {
+    dockerimagename = "ashishyete/dockerDemo"
+        dockerImage = ""
+    }
     stages {
         stage('Hello') {
             steps {
@@ -31,7 +34,7 @@ pipeline {
         stage("Docker build"){
             steps {
                 script{
-                dockerImage = docker.build dockerDemo
+                dockerImage = docker.build dockerimagename
                 }
         echo 'EXITING DOCKER BUILD'
             }
