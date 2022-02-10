@@ -30,7 +30,6 @@ pipeline {
         }
         stage("Docker build"){
             steps {
-         'docker version'
         echo 'EXITING DOCKER BUILD'
             }
     }
