@@ -30,12 +30,7 @@ pipeline {
         }
         stage("Docker build"){
             steps {
-                script{
-                'docker version'
-                 'docker build -t dockerDemo .'
-                 'docker image list'
-                  'docker tag dockerDemo ashishyete/dockerDemo:v1'
-                }
+                "docker version"
         echo 'EXITING DOCKER BUILD'
             }
     }
