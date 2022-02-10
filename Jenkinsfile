@@ -30,7 +30,9 @@ pipeline {
         }
         stage("Docker build"){
             steps {
-                "docker version"
+                script{
+                dockerImage = docker.build dockerDemo
+                }
         echo 'EXITING DOCKER BUILD'
             }
     }
