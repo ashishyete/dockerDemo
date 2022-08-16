@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+ <property resource="application.properties"/>
+    <contextName>${spring.application.name}</contextName>
+    <appender name="CONSOLEMSG" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">      
+        <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+            <expression>return (message.toLowerCase().contains("logmessage") || message.toLowerCase().contains("uri"));</expression>
+        </evaluator>
+        <OnMismatch>ACCEPT</OnMismatch>
+        <OnMatch>DENY</OnMatch>
+    </filter>
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+   <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>CST</timeZone>
+                </timestamp>
+               <contextName>
+                 <fieldName>app</fieldName>
+                </contextName>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <pattern>
+            <pattern>
+                {
+                "traceId": "%X{X-B3-TraceId:-}",    
+                "spanId": "%X{X-B3-SpanId:-}",
+                "TrackingId":"%X{TrackingId}",
+                "consoleMessage": "%message"
+                }
+            </pattern>
+        </pattern>
+        <stackTrace>
+            <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                <maxLength>2048</maxLength>
+                <rootCauseFirst>true</rootCauseFirst>
+            </throwableConverter>
+        </stackTrace>
+   </providers>  
+    </encoder>
+    </appender>
+    <appender name="CONSOLEWITHLOGMSG" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">      
+        <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+            <expression>return (message.toLowerCase().contains("logmessage") &amp;&amp;
+            !(message.toLowerCase().contains("uri")));</expression>
+        </evaluator>
+        <OnMismatch>DENY</OnMismatch>
+        <OnMatch>ACCEPT</OnMatch>
+    </filter>
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+   <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>CST</timeZone>
+                </timestamp>
+               <contextName>
+                 <fieldName>app</fieldName>
+                </contextName>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <pattern>
+            <pattern>
+                {
+                "traceId": "%X{X-B3-TraceId:-}",
+                "class": "%X{class}",
+                "method": "%X{method}",    
+                "spanId": "%X{X-B3-SpanId:-}",
+                "TrackingId": "%X{TrackingId}",
+                "logmessage": "%X{message}",
+                "line":"%X{line}",
+                "dbType":"%X{dbType}",
+                "execution_time":"%X{executionTime}",
+                "http_status_code":"%X{httpStatusCode}",
+                "reason_code":"%X{reasoncode}",
+              "message_detail":"%X{errorResponse}"
+                }
+            </pattern>
+        </pattern>
+        <stackTrace>
+            <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                <maxLength>2048</maxLength>
+                <rootCauseFirst>true</rootCauseFirst>
+            </throwableConverter>
+        </stackTrace>
+   </providers>
+   
+    </encoder>
+    </appender>
+    <appender name="CONSOLESOUTHBOUNDRESPONSE" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">      
+        <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+            <expression>return (!message.toLowerCase().contains("logmessage") &amp;&amp;
+            message.toLowerCase().contains("uri")  &amp;&amp;
+            message.toLowerCase().contains("response"));</expression>
+        </evaluator>
+        <OnMismatch>DENY</OnMismatch>
+        <OnMatch>ACCEPT</OnMatch>
+    </filter>
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+   <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>CST</timeZone>
+                </timestamp>
+               <contextName>
+                 <fieldName>app</fieldName>
+                </contextName>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <pattern>
+            <pattern>
+                {
+                "traceId": "%X{X-B3-TraceId:-}",
+                "class": "%X{class}",
+                "method": "%X{method}",    
+                "spanId": "%X{X-B3-SpanId:-}",
+                "TrackingId": "%X{TrackingId}",
+                "logmessage": "%X{logmessage}",
+                "line":"%X{line}",
+                "uri":"%X{uri}",
+                "execution_time":"%X{executionTime}",
+                "http_status_code_sb":"%X{httpStatusCode}",
+                "isError":"%X{isError}",
+                "response":"%X{responseSouthBound}"
+                }
+            </pattern>
+        </pattern>
+        <stackTrace>
+            <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                <maxLength>2048</maxLength>
+                <rootCauseFirst>true</rootCauseFirst>
+            </throwableConverter>
+        </stackTrace>
+   </providers>
+   
+    </encoder>
+    </appender>
+       <appender name="CONSOLESOUTHBOUNDREQUEST" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">      
+        <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+            <expression>return (!message.toLowerCase().contains("logmessage") &amp;&amp;
+            message.toLowerCase().contains("uri") &amp;&amp;
+            message.toLowerCase().contains("request"));</expression>
+        </evaluator>
+        <OnMismatch>DENY</OnMismatch>
+        <OnMatch>ACCEPT</OnMatch>
+    </filter>
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+   <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <timeZone>CST</timeZone>
+                </timestamp>
+               <contextName>
+                 <fieldName>app</fieldName>
+                </contextName>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <pattern>
+            <pattern>
+                {
+                "traceId": "%X{X-B3-TraceId:-}",
+                "class": "%X{class}",
+                "method": "%X{method}",    
+                "spanId": "%X{X-B3-SpanId:-}",
+                "TrackingId": "%X{TrackingId}",
+                "logmessage": "%X{logmessage}",
+                "line":"%X{line}",
+                "uri":"%X{uri}",
+                "http_method":"%X{httpMethod}",
+                "request":"%X{requestSouthBound}"
+                }
+            </pattern>
+        </pattern>
+        <stackTrace>
+            <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                <maxLength>2048</maxLength>
+                <rootCauseFirst>true</rootCauseFirst>
+            </throwableConverter>
+        </stackTrace>
+   </providers>
+   
+    </encoder>
+    </appender>
+    <root level="INFO">
+<appender-ref ref="CONSOLEMSG" />
+</root>
+<root level="INFO">
+<appender-ref ref="CONSOLEWITHLOGMSG" />
+</root>
+<root level="INFO">
+<appender-ref ref="CONSOLESOUTHBOUNDRESPONSE" />
+</root>
+<root level="INFO">
+<appender-ref ref="CONSOLESOUTHBOUNDREQUEST" />
+</root>
+</configuration>
